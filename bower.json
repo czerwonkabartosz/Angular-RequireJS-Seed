@@ -1,0 +1,26 @@
+{
+  "name": "Angular-Red-Seed",
+  "version": "0.0.1",
+  "main": "index.html",
+  "keywords": [
+    "Angular",
+    "Red",
+    "Seed"
+  ],
+  "authors": [
+    "Bartosz Czerwonka"
+  ],
+  "license": "GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "script.js":"*",
+    "requirejs": "*",
+    "angular": "*"
+  }
+}

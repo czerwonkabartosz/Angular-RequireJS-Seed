@@ -1,0 +1,21 @@
+{
+  "name": "angular-red-seed",
+  "version": "0.0.1",
+  "main": "js/index.html",
+  "author": "Bartosz Czerwonka",
+  "devDependencies": {
+    "amdefine": "*",
+    "gulp": "*",
+    "gulp-requirejs": "*",
+    "gulp-uglify": "*",
+    "gulp-inject": "*",
+    "gulp-concat": "*",
+    "gulp-angular-templatecache": "*",
+    "gulp-clean": "*",
+    "gulp-connect": "*",
+    "gulp-minify-css": "*",
+    "gulp-sass": "*",
+    "run-sequence": "*",
+    "underscore": "*"
+  }
+}
