@@ -4,6 +4,7 @@ node_modules/
 bower_components/
 vendor/
 build/
+templates.js
 tmp
 .DS_Store
 .idea
