@@ -33,13 +33,13 @@ Create version:
 Create developer version and start local server:
 <pre>
   <code>
-  gulp build-server
+  gulp run-build-server
   </code>
 </pre>
 
 Create version and start local server:
 <pre>
   <code>
-  gulp compile-server
+  gulp run-compile-server
   </code>
 </pre>
