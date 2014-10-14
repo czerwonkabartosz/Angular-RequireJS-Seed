@@ -219,7 +219,7 @@ gulp.task('clean', function() {
 
 gulp.task('local-server', function() {
   connect.server({
-    root: 'build',
+    root: 'build/',
     port: 8080,
     livereload: true
   });

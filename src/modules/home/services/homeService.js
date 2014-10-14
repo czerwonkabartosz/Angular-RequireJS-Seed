@@ -1,19 +1,19 @@
-(function(define) {
-  'use strict';
+(function (define) {
+    'use strict';
 
-  define([], function() {
-    return ['$http', HomeService];
+    define([], function () {
+        return ['$http', HomeService];
 
-    function HomeService($http) {
+        function HomeService($http) {
 
-      return {
-        getData: _getData
-      };
+            return {
+                getData: _getData
+            };
 
-      function _getData() {
-        return "data";
-      }
+            function _getData() {
+                return "data";
+            }
 
-    }
-  });
+        }
+    });
 }(define));

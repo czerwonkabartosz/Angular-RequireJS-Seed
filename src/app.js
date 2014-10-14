@@ -1,26 +1,26 @@
-(function(define) {
-  "use strict";
+(function (define) {
+    "use strict";
 
-  define([
-      'home/homeModule',
-    ],
-    function(homeModule) {
-      var app, appName = 'app.Name';
+    define([
+            'home/homeModule',
+        ],
+        function (homeModule) {
+            var app, appName = 'app.Name';
 
-      var depen = [
-        'ngRoute',
-        'templatescache',
+            var depen = [
+                'ngRoute',
+                'templatescache',
 
-        homeModule
-      ];
+                homeModule
+            ];
 
-      app = angular
-        .module(appName, depen);
+            app = angular
+                .module(appName, depen);
 
-      angular.bootstrap(document.getElementsByTagName("body")[0], [appName]);
+            angular.bootstrap(document.getElementsByTagName("body")[0], [appName]);
 
-      return app;
-    }
-  );
+            return app;
+        }
+    );
 
 }(define));
