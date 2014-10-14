@@ -3,8 +3,11 @@ if (typeof define !== 'function') {
 }
 
 define({
-  vendors: [
+  main: [
     'vendor/requirejs/require.js',
-    'vendor/angular/angular.js'
+    'vendor/angular/angular.js',
+  ],
+  vendors: [
+    'vendor/angular-route/angular-route.js'
   ]
 });

@@ -120,6 +120,22 @@ gulp.task('inject-vendors', function() {
     .pipe(inject(gulp.src([''], {
       read: false
     }), {
+      starttag: '//inject:vendors-main-files',
+      endtag: '//end-inject:vendros-main-files',
+      transform: function(filepath, file, i, length) {
+        var configRequire = require('./src/config-vendors.js');
+        var vendors = '';
+
+        _.each(configRequire.main, function(vendor) {
+          vendors += '\'' + vendor + '\',';
+        });
+
+        return vendors;
+      }
+    }))
+    .pipe(inject(gulp.src([''], {
+      read: false
+    }), {
       starttag: '//inject:vendors-files',
       endtag: '//end-inject:vendros-files',
       transform: function(filepath, file, i, length) {
@@ -180,7 +196,7 @@ gulp.task('build-inject-require-config', function() {
 });
 
 gulp.task('concat-templates', function() {
-  return gulp.src(['src/templates.js', 'build/app.js'])
+  return gulp.src(['build/templates.js', 'build/app.js'])
     .pipe(concat('app.js'))
     .pipe(uglify())
     .pipe(gulp.dest('build/'));

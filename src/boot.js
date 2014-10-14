@@ -1,25 +1,29 @@
 (function() {
   "use strict";
-
-  $script(
-    [
-      //inject:vendors-files
-      //end-inject:vendros-files
+  $script([
+      //inject:vendors-main-files
+      //end-inject:vendros-main-files
     ],
     function() {
       $script(
         [
-          //inject:app-files
-          //end-inject:app-files
+          //inject:vendors-files
+          //end-inject:vendros-files
         ],
         function() {
-          //inject:require-dev-config
-          //end-inject:require-dev-config
+          $script(
+            [
+              //inject:app-files
+              //end-inject:app-files
+            ],
+            function() {
+              //inject:require-build-config
+              //end-inject:require-build-config
 
-          require(["app"], function(app) {
+              require(["app"], function(app) {
 
-          });
-        }
-      );
+              });
+            });
+        });
     });
 }());

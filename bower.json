@@ -19,8 +19,9 @@
     "tests"
   ],
   "dependencies": {
-    "script.js":"*",
+    "script.js": "*",
     "requirejs": "*",
-    "angular": "*"
+    "angular": "*",
+    "angular-route": "*"
   }
 }

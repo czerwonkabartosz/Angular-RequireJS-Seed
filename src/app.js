@@ -2,13 +2,16 @@
   "use strict";
 
   define([
-      'tP/test',
+      'home/homeModule',
     ],
-    function(test) {
+    function(homeModule) {
       var app, appName = 'app.Name';
 
       var depen = [
-        'templatescache'
+        'ngRoute',
+        'templatescache',
+
+        homeModule
       ];
 
       app = angular

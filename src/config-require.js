@@ -5,8 +5,7 @@ if (typeof define !== 'function') {
 define({
   baseUrl: '',
   paths: {
-    'tP' : 'modules/test'
+    'home': 'modules/home'
   },
-  shim: {
-  }
+  shim: {}
 });
