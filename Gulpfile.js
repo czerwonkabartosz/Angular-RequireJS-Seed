@@ -92,12 +92,12 @@ gulp.task('inject-css', function() {
 gulp.task('js', function() {
   if (buildMode === true) {
 
-    return gulp.src(['src/**/*.js', '!src/vendor/**/*', '!src/boot.js', '!src/config-*.js', '!src/templates.js'])
+    return gulp.src(['src/**/*.js', '!src/vendor/**/*', '!src/boot.js', '!src/config.js', '!src/templates.js'])
       .pipe(gulp.dest('./build/'));
 
   } else {
 
-    var configRequire = require('./src/config-require.js');
+    var configRequire = require('./src/config.js').requirejs;
     var configBuild = {
       baseUrl: 'src',
       name: 'app',
@@ -116,6 +116,8 @@ gulp.task('js', function() {
 });
 
 gulp.task('inject-vendors', function() {
+  var configRequire = require('./src/config.js').vendors;
+
   return gulp.src('build/boot.js')
     .pipe(inject(gulp.src([''], {
       read: false
@@ -123,7 +125,6 @@ gulp.task('inject-vendors', function() {
       starttag: '//inject:vendors-main-files',
       endtag: '//end-inject:vendros-main-files',
       transform: function(filepath, file, i, length) {
-        var configRequire = require('./src/config-vendors.js');
         var vendors = '';
 
         _.each(configRequire.main, function(vendor) {
@@ -139,10 +140,9 @@ gulp.task('inject-vendors', function() {
       starttag: '//inject:vendors-files',
       endtag: '//end-inject:vendros-files',
       transform: function(filepath, file, i, length) {
-        var configRequire = require('./src/config-vendors.js');
         var vendors = '';
 
-        _.each(configRequire.vendors, function(vendor) {
+        _.each(configRequire.library, function(vendor) {
           vendors += '\'' + vendor + '\',';
         });
 
@@ -175,7 +175,7 @@ gulp.task('inject-js', function() {
       starttag: '//inject:require-build-config',
       endtag: '//end-inject:require-build-config',
       transform: function(filepath, file, i, length) {
-        var configRequire = require('./src/config-require.js');
+        var configRequire = require('./src/config.js').requirejs;
 
         var requireConfig = 'require.config(';
         requireConfig += JSON.stringify(configRequire);
@@ -229,7 +229,7 @@ gulp.task('watch', function() {
 
   gulp.watch(['src/index.html'], ['index']);
 
-  gulp.watch(['src/**/*.js', '!src/vendor/**/*', '!src/boot.js', '!src/config-*.js', '!src/templates.js'], ['js']);
+  gulp.watch(['src/**/*.js', '!src/vendor/**/*', '!src/boot.js', '!src/config.js', '!src/templates.js'], ['js']);
 
   gulp.watch(['src/**/*.scss', '!src/vendor/**/*.scss'], ['css']);
 
