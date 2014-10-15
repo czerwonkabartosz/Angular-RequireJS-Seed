@@ -4,6 +4,7 @@
   "main": "js/index.html",
   "author": "Bartosz Czerwonka",
   "devDependencies": {
+    "bower" : "*",
     "amdefine": "*",
     "gulp": "*",
     "gulp-requirejs": "*",
