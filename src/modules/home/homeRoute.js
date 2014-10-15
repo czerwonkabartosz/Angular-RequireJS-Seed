@@ -9,7 +9,8 @@
             $routeProvider.
                 when('/home', {
                     templateUrl: 'modules/home/views/index.tpl.html',
-                    controllerAs: 'HomeController'
+                    controller: 'HomeController',
+                    controllerAs: 'vm'
                 })
                 .otherwise({
                     redirectTo: '/home'

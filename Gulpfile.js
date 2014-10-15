@@ -66,8 +66,7 @@ gulp.task('views', function() {
 });
 
 gulp.task('css', function() {
-  //TODO jeden plik app.scss
-  var cssTask = gulp.src(['src/**/*.scss', '!src/vendor/**/*.scss'])
+  var cssTask = gulp.src(['src/styles/style.scss'])
     .pipe(sass());
 
   if (buildMode !== true) {
@@ -203,7 +202,7 @@ gulp.task('concat-templates', function() {
 });
 
 gulp.task('uglify-all', function() {
-  return gulp.src('build/**/*.js')
+  return gulp.src(['build/**/*.js', '!build/vendor/**/*'])
     .pipe(uglify())
     .pipe(gulp.dest('build/'));
 });
@@ -229,7 +228,14 @@ gulp.task('watch', function() {
 
   gulp.watch(['src/index.html'], ['index']);
 
-  gulp.watch(['src/**/*.js', '!src/vendor/**/*', '!src/boot.js', '!src/config.js', '!src/templates.js'], ['js']);
+  gulp.watch(['src/**/*.js', '!src/vendor/**/*', '!src/boot.js', '!src/config.js', '!src/templates.js'],
+  function(){
+    runSequence('js', function(){
+      if(buildMode !== true){
+        runSequence('concat-templates');
+      }
+    })
+  });
 
   gulp.watch(['src/**/*.scss', '!src/vendor/**/*.scss'], ['css']);
 
