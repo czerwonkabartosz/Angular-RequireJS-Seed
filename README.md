@@ -1,4 +1,4 @@
-<h1>Angular Red Seed</h1>
+<h1>Angular RequireJS Seed</h1>
 This project is a base for modular project with AngularJS.
 
 <ul>
