@@ -20,7 +20,7 @@ module.exports = function (config) {
         exclude: [],
         port: 9876,
         runnerPort: 9100,
-        reporters: ['progress', 'dots'],
+        reporters: ['dots'],
         colors: true,
 
         // level of logging
