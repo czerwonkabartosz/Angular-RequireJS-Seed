@@ -32,7 +32,12 @@ This project is a base for modular project with AngularJS.
   <li>
   <h3>Testing</h3>
   <ul>
-  <li><i>TODO</i></li>
+  <li>
+    <a href="http://karma-runner.github.io/0.12/index.html">KarmaJS</a> - Spectacular Test Runner for Javascript.
+  </li>
+  <li>
+    <a href="http://jasmine.github.io/">Jasmine 2.0</a> - Behavior-driven development framework for testing JavaScript code.
+  </li>
   </ul>
   </li>
 </ul>
@@ -72,6 +77,8 @@ Create compile version using <code><b>gulp compile</b></code>.
 </li>
 </ul>
 
+<h4>Run tests</h4>
+Before run test <b>compile</b> or <b>build</b> application and then using <code><b>gulp test</b></code>.
 
 <h4>Local server</h4>
 Start application with local server with default configuration <a href="http://localhost:8080">http://localhost:8080</a>
