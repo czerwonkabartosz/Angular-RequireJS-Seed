@@ -11,6 +11,9 @@ define({
         library: [
             'vendor/angular-route/angular-route.js',
             'vendor/jquery/dist/jquery.js'
+        ],
+        testLibrary:[
+            'vendor/angular-mocks/angular-mocks.js'
         ]
     },
     requirejs: {

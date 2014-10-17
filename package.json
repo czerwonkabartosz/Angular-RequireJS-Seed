@@ -17,6 +17,10 @@
     "gulp-minify-css": "*",
     "gulp-sass": "*",
     "run-sequence": "*",
+    "gulp-karma" : "*",
+    "karma" : "*",
+    "karma-requirejs" : "*",
+    "karma-jasmine": "~0.2.0",
     "underscore": "*"
   }
 }

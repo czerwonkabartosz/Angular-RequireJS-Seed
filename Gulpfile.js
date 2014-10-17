@@ -10,6 +10,7 @@ var sass = require('gulp-sass');
 var minifyCSS = require('gulp-minify-css');
 var connect = require('gulp-connect');
 var runSequence = require('run-sequence');
+var karma = require('gulp-karma');
 
 var buildMode = false;
 
@@ -17,11 +18,11 @@ var buildMode = false;
 
 gulp.task('build', function() {
   buildMode = true;
-  runSequence('compile');
+  return runSequence('compile');
 });
 
 gulp.task('compile', function() {
-  runSequence('clean', ['vendors', 'index', 'boot', 'js', 'views', 'css'],
+  return runSequence('clean', ['vendors', 'index', 'boot', 'js', 'views', 'css'],
     'inject-js', 'inject-vendors', 'inject-css',
     function() {
       if (buildMode === false) {
@@ -122,7 +123,7 @@ gulp.task('inject-vendors', function() {
       read: false
     }), {
       starttag: '//inject:vendors-main-files',
-      endtag: '//end-inject:vendros-main-files',
+      endtag: '//end-inject:vendors-main-files',
       transform: function(filepath, file, i, length) {
         var vendors = '';
 
@@ -137,7 +138,7 @@ gulp.task('inject-vendors', function() {
       read: false
     }), {
       starttag: '//inject:vendors-files',
-      endtag: '//end-inject:vendros-files',
+      endtag: '//end-inject:vendors-files',
       transform: function(filepath, file, i, length) {
         var vendors = '';
 
@@ -250,3 +251,70 @@ gulp.task('watch', function() {
 });
 
 // End Local Server
+
+// Testing
+
+gulp.task('test-inject-vendors', function() {
+  var configRequire = require('./src/config.js').vendors;
+
+  return gulp.src('test/config/karma.conf.js')
+      .pipe(inject(gulp.src([''], {
+        read: false
+      }), {
+        starttag: '//inject:test-vendors-files',
+        endtag: '//end-inject:test-vendors-files',
+        transform: function(filepath, file, i, length) {
+          var vendors = '';
+
+          _.each(configRequire.main, function(vendor) {
+            vendors += '\'' + vendor + '\',';
+          });
+
+          _.each(configRequire.library, function(vendor) {
+            vendors += '\'' + vendor + '\',';
+          });
+
+          _.each(configRequire.testLibrary, function(vendor) {
+            vendors += '\'../src/' + vendor + '\',';
+          });
+
+          return vendors;
+        }
+      }))
+      .pipe(gulp.dest('test/config/'));
+});
+
+gulp.task('test-inject-require-config', function() {
+  var task = gulp.src('test/config/karmaBoot.js');
+
+    task.pipe(inject(gulp.src([''], {
+      read: false
+    }), {
+      starttag: '//inject:require-test-config',
+      endtag: '//end-inject:require-test-config',
+      transform: function(filepath, file, i, length) {
+        var configRequire = require('./src/config.js').requirejs;
+
+        // Karma serves files from '/base'
+        configRequire.baseUrl = '/base';
+
+        var requireConfig = 'requirejs.config(';
+        requireConfig += JSON.stringify(configRequire);
+        requireConfig += ');';
+
+        return requireConfig;
+      }
+    }));
+
+  return task.pipe(gulp.dest('test/config/'));
+});
+
+gulp.task('test', ['test-inject-require-config', 'test-inject-vendors'], function () {
+  return gulp.src(['no need to supply files because everything is in config file'])
+      .pipe(karma({
+        configFile: 'test/config/karma.conf.js',
+        action: 'run'
+      }));
+});
+
+// End Testing
