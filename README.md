@@ -46,7 +46,143 @@ This project is a base for modular project with AngularJS.
 
 <h2>Instructions</h2>
 <h3>Usage</h3>
-<i>TODO</i>
+
+<b>Directory Layout</b>
+<code>
+```
+build/                                  - folder with compile or build app
+    css/
+        style.css
+    vendor/
+        angularjs/
+    app.js
+    boot.js
+    index.html
+src/                                    - application source files
+    modules/                            
+        home/                           - module folder
+            controllers/
+                homeController.js
+            models/
+            services/
+            views/
+                index.tpl.html
+            homeModule.js               - main file of module with declaration all of dependency 
+            homeRoute.js                - routing for module
+        users/                          
+    styles/                             - folder for all sass styles
+        style.scss
+    vendor/                             - folder for libraries
+        angularjs/
+        angular-mocks/
+    app.js                              - main file of application with declaration / registration all of modules
+    boot.js                             - READONLY - file to load libraries asynchronous and run app with requirejs
+    config.js                           - configuration file - config to RequireJS and vendors
+    index.html                          
+test/                                   
+    config/
+        karma.conf.js
+        karmaBoot.js
+    specs/
+        modules/                        - test specs group by modules
+            home/
+                homeControllersSpec.js
+            users/
+Gulpfile.js
+bower.json
+package.json
+```
+</code>
+
+<b>Example main file for module src/modules/home/homeModule.js</b>
+<code>
+```
+(function (define) {
+    'use strict';
+
+    define([
+            'home/controllers/homeController',
+            'home/services/homeService',
+            'home/homeRoute'
+        ],
+        function (HomeController, HomeService, homeRoute) {
+            var moduleName = 'Home';
+
+            angular.module(moduleName, [])
+                .config(homeRoute)
+                .controller('HomeController', HomeController)
+                .service('HomeService', HomeService);
+
+            return moduleName;
+        });
+
+}(define));
+```
+</code>
+
+<b>Example app.js with register homeModule</b>
+<code>
+```
+(function (define) {
+    "use strict";
+
+    define([
+            'home/homeModule',
+        ],
+        function (homeModule) {
+            var app, appName = 'app.Name';
+
+            var depen = [
+                'ngRoute',
+                'templatescache',
+
+                homeModule
+            ];
+
+            app = angular
+                .module(appName, depen);
+
+            angular.bootstrap(document.getElementsByTagName("body")[0], [appName]);
+
+            return app;
+        }
+    );
+
+}(define));
+```
+</code>
+
+<b>Example src/config.js</b>
+<code>
+```
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module);
+}
+
+define({
+    vendors: {
+        main: [
+            'vendor/requirejs/require.js',
+            'vendor/angular/angular.js',
+        ],
+        library: [
+            'vendor/angular-route/angular-route.js',
+            'vendor/jquery/dist/jquery.js'
+        ],
+        testLibrary:[
+            'vendor/angular-mocks/angular-mocks.js'
+        ]
+    },
+    requirejs: {
+        baseUrl: '',
+        paths: {
+            'home': 'modules/home'
+        },
+        shim: {}
+    }
+});
+```
+</code>
 
 <h3>Install</h3>
 
